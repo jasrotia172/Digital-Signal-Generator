@@ -55,7 +55,7 @@ It includes real-time signal drawing, scaling, scrolling, animation, and automat
 
 ---
 
-## 🏗️ Project Structure
+## 🏗️ Project Structure(Windows)
 
 ```bash
 Signal_Generator/
@@ -76,6 +76,24 @@ Signal_Generator/
 ├── freeglut.dll
 ├── code.cpp
 ├── Signal_Generator.exe
+
+```
+
+## 🏗️ Project Structure(Mac)
+
+```bash
+Signal_Generator/
+│
+├── include/
+│   └── GL/
+│       ├── freeglut.h
+│       ├── freeglut_ext.h
+│       ├── freeglut_std.h
+│       └── glut.h
+│
+├── freeglut.dll
+├── code.cpp
+├── Signal_Generator
 
 ```
 
