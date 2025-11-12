@@ -1,3 +1,7 @@
+// g++ "/Users/ansh/Desktop/Digital Signal Generator/code.cpp" \
+// -o "/Users/ansh/Desktop/Digital Signal Generator/Signal_Generator" \
+// -I/opt/homebrew/include \
+// -framework OpenGL -framework GLUT
 #include <iostream>
 #include <vector>
 #include <string>
@@ -117,18 +121,17 @@ void scrambleB8ZS(char* bits, int* encoded, int n) {
             encoded[i] = flag ? 1 : -1;
             zeroCount = 0;
             flag = !flag;
-        } else {
+        } 
+        else{
             encoded[i] = 0;
             zeroCount++;
         }
         
-        
         if (zeroCount == 8) {
-        
-            encoded[i-4] = flag ? -1 : 1;   
-            encoded[i-3] = flag ? 1 : -1;   
-            encoded[i-1] = flag ? 1 : -1;   
-            encoded[i] = flag ? -1 : 1;     
+            encoded[i-4] = flag ? 1 : -1;  //V 
+            encoded[i-3] = flag ? -1 : 1;  //B
+            encoded[i-1] = flag ? -1 : 1;  //V
+            encoded[i] = flag ? 1 : -1;    //B
             zeroCount = 0;
         }
     }
@@ -152,12 +155,12 @@ void scrambleHDB3(char* bits, int* encoded, int n) {
         
         
         if (zeroCount == 4) {
-            if (flag) {
+            if (flag) { //B00V
                 
-                encoded[i-3] = prev ? -1 : 1;   
-                encoded[i] = prev ? -1 : 1;     
+                encoded[i-3] = prev ? -1 : 1;   //B
+                encoded[i] = encoded[i-3];     //V
             } else {
-                encoded[i] = prev ? 1 : -1;     
+                encoded[i] = prev ? 1 : -1;   //000V  
             }
             zeroCount = 0;
             flag = true;
