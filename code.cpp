@@ -29,12 +29,18 @@ string longestPalindrome(const string& s) {
     for (int i = 0; i < n; ++i) {
         int l = i, r = i;
         while (l >= 0 && r < n && s[l] == s[r]) {
-            if (r - l + 1 > maxLen) { start = l; maxLen = r - l + 1; }
+            if (r - l + 1 > maxLen) { 
+                start = l; 
+                maxLen = r - l + 1; 
+            }
             --l; ++r;
         }
         l = i; r = i + 1;
         while (l >= 0 && r < n && s[l] == s[r]) {
-            if (r - l + 1 > maxLen) { start = l; maxLen = r - l + 1; }
+            if (r - l + 1 > maxLen) { 
+                start = l; 
+                maxLen = r - l + 1;
+            }
             --l; ++r;
         }
     }
@@ -71,7 +77,7 @@ string encodeNRZI(const string &data) {
     return encoded;
 }
 
-
+//Manchester
 string encodeManchester(const string &data) {
     string encoded;
     for (char bit : data)
@@ -79,6 +85,7 @@ string encodeManchester(const string &data) {
     return encoded;
 }
 
+//Differential Manchester 
 string encodeDiffManchester(const string &data) {
     string encoded; char prev = '1';
     for (char bit : data) {
@@ -99,12 +106,12 @@ string encodeDiffManchester(const string &data) {
 
 // ------------ AMI (C-style, fills int encoded[] with 1/-1/0) ------------
 void encodeAMI(char* bits, int* encoded, int n) {
-    int lastPolarity = 1;
+    bool flag = false;
     for (int i = 0; i < n; i++) {
         if (bits[i] == '0') encoded[i] = 0;
         else {
-            encoded[i] = lastPolarity;
-            lastPolarity = -lastPolarity;
+            encoded[i] = flag? -1: 1;
+            flag = !flag;
         }
     }
 }
@@ -114,11 +121,11 @@ void encodeAMI(char* bits, int* encoded, int n) {
 // --- B8ZS Scrambling ---
 void scrambleB8ZS(char* bits, int* encoded, int n) {
     int zeroCount = 0;
-    bool flag = true;  
+    bool flag = false;  //denotes if previous non zero pulse was +ve or -ve
     
     for (int i = 0; i < n; i++) {
         if (bits[i] == '1') {
-            encoded[i] = flag ? 1 : -1;
+            encoded[i] = flag ? -1 : 1;
             zeroCount = 0;
             flag = !flag;
         } 
@@ -139,8 +146,8 @@ void scrambleB8ZS(char* bits, int* encoded, int n) {
 
 void scrambleHDB3(char* bits, int* encoded, int n) {
     int zeroCount = 0;
-    bool flag = true;      
-    bool prev = false;     
+    bool flag = true;      //denotes even or odd non zero pulses upto now
+    bool prev = false;     //denotes if previous non zero pulse was +ve or -ve
     
     for (int i = 0; i < n; i++) {
         if (bits[i] == '1') {
