@@ -118,4 +118,4 @@ After successful compilation, execute the program:
 ```
 
 ## References
-- **ChatGPT
+- **ChatGPT**
